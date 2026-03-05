@@ -1,0 +1,116 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for TinyUrl
+labels: ["feature", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the feature request! Help us understand what you need by filling in the details below.
+
+  - type: input
+    id: title
+    attributes:
+      label: Feature Title
+      description: A clear title for the feature (e.g., "Add custom short URL support")
+      placeholder: "e.g., Add custom short URL support"
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      description: Describe this feature from the user's perspective
+      placeholder: |
+        As a [type of user/role], I want [capability], so that [benefit/goal].
+        
+        Example:
+        As a social media manager, I want to create custom short URLs (e.g., /s/my-campaign), so that I can track branded links in analytics.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? Why is it needed?
+      placeholder: |
+        Currently, TinyUrl generates random 8-character IDs with no user customization.
+        This makes it hard to remember and track branded URLs for marketing campaigns.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this feature to work? What's the high-level approach?
+      placeholder: |
+        - Allow users to optionally provide a custom short URL slug (e.g., /s/my-link)
+        - Validate that the slug is unique in the database
+        - If slug already exists, suggest alternatives or return a validation error
+        - Store custom slugs alongside auto-generated IDs
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: What needs to be true for this feature to be considered "done"? (use checkboxes)
+      placeholder: |
+        - [ ] Users can optionally provide a custom slug on the shortening form
+        - [ ] Validation prevents duplicate slugs with a clear error message
+        - [ ] Database schema supports storing custom vs auto-generated slugs
+        - [ ] GET /url/{slug} resolves both custom and auto-generated IDs
+        - [ ] Unit and integration tests cover new functionality
+        - [ ] Documentation updated with custom slug usage example
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation Notes (Optional)
+      description: Any technical notes, database schema changes, or architectural suggestions?
+      placeholder: |
+        - Consider adding a new nullable column `CustomSlug` to the ShortUrl model
+        - Update UrlController.GetShortUrl() to check CustomSlug field
+        - Add slug validation regex (alphanumeric + hyphens only, 3-50 chars)
+        - May need index on CustomSlug for performance
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Are there alternative solutions or approaches?
+      placeholder: "Alternative 1: ...\nAlternative 2: ..."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - "Low (nice-to-have)"
+        - "Medium (useful improvement)"
+        - "High (important for our use case)"
+        - "Critical (blocks our workflow)"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Screenshots, mockups, links, or other relevant information?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: I have considered the scope and complexity of this feature
+          required: false

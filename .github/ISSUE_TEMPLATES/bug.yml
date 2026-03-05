@@ -1,0 +1,110 @@
+name: Bug Report
+description: Report a bug or issue with TinyUrl
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill in the details below to help us understand and reproduce the issue.
+
+  - type: input
+    id: title
+    attributes:
+      label: Bug Title
+      description: A clear, concise title for the bug (e.g., "Redirect fails for URLs with special characters")
+      placeholder: "e.g., Redirect fails for URLs with special characters"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide a brief description of the bug
+      placeholder: "Describe what's happening..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this issue?
+      options:
+        - Critical (app crashes or core feature completely broken)
+        - High (major feature broken, significant user impact)
+        - Medium (workaround exists, minor feature impacted)
+        - Low (cosmetic issue or minor inconvenience)
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the bug
+      placeholder: |
+        1. Navigate to the homepage
+        2. Enter a long URL (e.g., "https://example.com/very/long/path")
+        3. Click the "Shorten" button
+        4. Observe the unexpected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+      placeholder: "The app should redirect to the original URL..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happens instead?
+      placeholder: "The app shows a 404 error instead..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Information about your environment
+      placeholder: |
+        - OS: Windows 11 / macOS / Linux
+        - .NET Version: .NET 10
+        - Browser: Chrome 131 / Firefox 133 / Safari 18
+        - Database State: (fresh install / existing URLs / corrupted DB)
+        - Any custom configuration: (yes/no, describe if yes)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs or Screenshots
+      description: Paste any relevant error messages, stack traces, or screenshots
+      placeholder: "Paste logs or attach screenshots..."
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other relevant information?
+      placeholder: "Add any other context here..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: I have tested this with the latest version of TinyUrl
+          required: false
