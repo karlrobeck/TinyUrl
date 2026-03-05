@@ -52,6 +52,43 @@ A lightweight URL shortener built with ASP.NET Core 10. Paste a long URL, get an
    - HTTP:  `http://localhost:5223`
    - HTTPS: `https://localhost:7156`
 
+## Contributing & Filing Issues
+
+We welcome bug reports, feature requests, and feedback! Please use our issue templates to help us understand and prioritize your input.
+
+### Report a Bug
+
+Create a [Bug Report](https://github.com/karlrobeck/TinyUrl/issues/new?template=bug.yml) when you encounter unexpected behavior or errors.
+
+**Include:**
+- Clear title and description
+- Steps to reproduce the issue
+- Expected vs actual behavior
+- Environment details (OS, .NET version, browser)
+- Error logs or screenshots if available
+- Severity level (critical, high, medium, low)
+
+### Request a Feature
+
+Create a [Feature Request](https://github.com/karlrobeck/TinyUrl/issues/new?template=feature_request.yml) to suggest improvements or new functionality.
+
+**Include:**
+- User story from the perspective of the feature user
+- Problem statement — what pain point does this solve?
+- Proposed solution — high-level approach
+- Acceptance criteria — what needs to be true for this to be "done"
+- Priority level (low, medium, high, critical)
+- Optional: implementation notes or technical suggestions
+
+### Guidelines
+
+- Search existing issues before filing to avoid duplicates
+- Use clear, descriptive titles
+- Provide as much context as possible — better details = faster fixes
+- Be respectful and constructive in all communications
+
+For general questions, visit [GitHub Discussions](https://github.com/karlrobeck/TinyUrl/discussions).
+
 ## Configuration
 
 Connection string and other settings are in `appsettings.json`:
