@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/robeckk/TinyUrl#readme
+    url: https://github.com/karlrobeck/TinyUrl#readme
     about: Learn how to use TinyUrl
   - name: Discussions
-    url: https://github.com/robeckk/TinyUrl/discussions
+    url: https://github.com/karlrobeck/TinyUrl/discussions
     about: Ask questions and share ideas with the community
