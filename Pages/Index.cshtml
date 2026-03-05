@@ -19,6 +19,12 @@
             <div class="card-body p-6">
                 <form method="post">
                     <div asp-validation-summary="ModelOnly" class="alert alert-error alert-soft mb-4" role="alert"></div>
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-error alert-soft mb-4" role="alert">
+                            <span>@Model.ErrorMessage</span>
+                        </div>
+                    }
                     <div class="mb-4">
                         <label class="w-full input input-bordered flex items-center gap-2 @(ViewData.ModelState["NewUrl"]?.Errors.Count > 0 ? "input-error" : "")">
                             <input type="url"

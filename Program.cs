@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TinyUrl.Data;
+using TinyUrl.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
 );
+builder.Services.AddScoped<IUrlGenerationService, UrlGenerationService>();
 
 var app = builder.Build();
 

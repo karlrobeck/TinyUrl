@@ -7,7 +7,7 @@ namespace TinyUrl.Models;
 public class ShortUrl
 {
   [Key]
-  public string Id { get; set; } = Guid.NewGuid().ToString("N").Substring(0, 8);
+  public string Id { get; set; } = string.Empty;
   public string OriginalUrl { get; set; } = string.Empty;
   public DateTime CreatedAt { get; set; }
 }
