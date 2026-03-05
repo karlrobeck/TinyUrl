@@ -11,10 +11,11 @@ A lightweight URL shortener built with ASP.NET Core 10. Paste a long URL, get an
 - Generate short URLs with an 8-character hexadecimal ID
 - **Collision detection and automatic retry** — detects ID collisions and regenerates with up to 5 retry attempts
 - **Server-side URL validation** — only valid HTTP/HTTPS URLs are accepted; invalid formats are rejected with clear error messages
+- **Creation timestamp display** — shows when each URL was created in user-friendly format on the result page
 - One-click clipboard copy of the generated short URL
 - HTTP 302 redirect from short URL to original
 - Persistent storage via SQLite
-- Responsive Bootstrap 5 UI
+- Responsive daisyUI/Tailwind CSS UI
 
 ## Tech Stack
 
@@ -24,7 +25,7 @@ A lightweight URL shortener built with ASP.NET Core 10. Paste a long URL, get an
 | Web framework | ASP.NET Core 10 (Razor Pages + MVC Controllers) |
 | ORM | Entity Framework Core 10 |
 | Database | SQLite |
-| Frontend | Bootstrap 5, jQuery, jQuery Validation |
+| Frontend | daisyUI 5, Tailwind CSS 4 |
 
 ## Prerequisites
 
@@ -115,7 +116,7 @@ TinyUrl/
 │   └── AppDbContext.cs        # EF Core DbContext
 ├── Migrations/                # EF Core migration files
 ├── Models/
-│   └── ShortUrl.cs            # ShortUrl entity (Id, OriginalUrl, CreatedAt)
+│   └── ShortUrl.cs            # ShortUrl entity (Id, OriginalUrl, CreatedAt — displayed on result page)
 ├── Pages/
 │   ├── Index.cshtml           # Home page — URL input form and result display
 │   └── Index.cshtml.cs        # Page model — handles form POST, server-side URL validation, and URL creation
@@ -182,7 +183,7 @@ This ensures data integrity and prevents silent failures.
 ## Known Limitations
 
 - **No authentication or rate limiting** — the app is open to abuse if exposed publicly without a reverse proxy or WAF.
-- **No click tracking** — `CreatedAt` is stored but not surfaced in the UI.
+- **No click tracking or analytics** — access counts and usage statistics are not tracked.
 
 ## License
 

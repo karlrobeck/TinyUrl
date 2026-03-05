@@ -16,6 +16,7 @@ public class IndexModel(AppDbContext context, IUrlGenerationService urlGeneratio
     [Required(ErrorMessage = "Url is required")]
     public required Uri NewUrl { get; set; }
     public string? ShortenedUrl { get; set; }
+    public DateTime? CreatedAtTime { get; set; }
     public string? ErrorMessage { get; set; }
 
     public void OnGet()
@@ -49,6 +50,7 @@ public class IndexModel(AppDbContext context, IUrlGenerationService urlGeneratio
             await _context.SaveChangesAsync();
 
             ShortenedUrl = $"{Request.Scheme}://{Request.Host}/url/{shortUrl.Id}";
+            CreatedAtTime = shortUrl.CreatedAt;
             _logger.LogInformation("Successfully created short URL {ShortId} for {OriginalUrl}", shortId, NewUrl);
         }
         catch (IdGenerationFailedException ex)
