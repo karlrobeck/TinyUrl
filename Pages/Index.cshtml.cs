@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TinyUrl.Data;
@@ -12,7 +13,8 @@ public class IndexModel(AppDbContext context, IUrlGenerationService urlGeneratio
     private readonly IUrlGenerationService _urlGenerationService = urlGenerationService;
     private readonly ILogger<IndexModel> _logger = logger;
 
-    public string? NewUrl { get; set; }
+    [Required(ErrorMessage = "Url is required")]
+    public required Uri NewUrl { get; set; }
     public string? ShortenedUrl { get; set; }
     public string? ErrorMessage { get; set; }
 
@@ -21,15 +23,14 @@ public class IndexModel(AppDbContext context, IUrlGenerationService urlGeneratio
 
     }
 
-    public async Task OnPost()
+    public async Task<IActionResult> OnPost()
     {
         ErrorMessage = null;
         ShortenedUrl = null;
 
-        if (string.IsNullOrEmpty(NewUrl))
+        if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("NewUrl", "URL is required.");
-            return;
+            return Page();
         }
 
         try
@@ -40,7 +41,7 @@ public class IndexModel(AppDbContext context, IUrlGenerationService urlGeneratio
             var shortUrl = new Models.ShortUrl
             {
                 Id = shortId,
-                OriginalUrl = NewUrl,
+                OriginalUrl = NewUrl.ToString(),
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -62,5 +63,7 @@ public class IndexModel(AppDbContext context, IUrlGenerationService urlGeneratio
             ErrorMessage = "An unexpected error occurred. Please try again later.";
             ModelState.AddModelError("", ErrorMessage);
         }
+
+        return Page();
     }
 }

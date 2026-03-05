@@ -10,6 +10,7 @@ A lightweight URL shortener built with ASP.NET Core 10. Paste a long URL, get an
 
 - Generate short URLs with an 8-character hexadecimal ID
 - **Collision detection and automatic retry** — detects ID collisions and regenerates with up to 5 retry attempts
+- **Server-side URL validation** — only valid HTTP/HTTPS URLs are accepted; invalid formats are rejected with clear error messages
 - One-click clipboard copy of the generated short URL
 - HTTP 302 redirect from short URL to original
 - Persistent storage via SQLite
@@ -117,7 +118,7 @@ TinyUrl/
 │   └── ShortUrl.cs            # ShortUrl entity (Id, OriginalUrl, CreatedAt)
 ├── Pages/
 │   ├── Index.cshtml           # Home page — URL input form and result display
-│   └── Index.cshtml.cs        # Page model — handles form POST and URL creation
+│   └── Index.cshtml.cs        # Page model — handles form POST, server-side URL validation, and URL creation
 ├── Services/
 │   ├── IUrlGenerationService.cs    # Interface for URL ID generation with collision detection
 │   ├── UrlGenerationService.cs     # Implementation with retry logic
@@ -146,6 +147,27 @@ GET /url/{id}
 | `302 Found` | Redirects to the original URL |
 | `404 Not Found` | No URL found for the given ID |
 
+### Input Validation
+
+The server validates all incoming URLs with the following rules:
+
+| Rule | Requirement |
+|---|---|
+| Format | Must be a valid absolute HTTP or HTTPS URL |
+| Empty input | Rejected with message "Url is required" |
+| Invalid format | Rejected with message "Invalid URL format" |
+
+**Example valid URLs:**
+- `https://example.com`
+- `http://github.com/user/repo`
+- `https://example.com:8080/path?query=value`
+
+**Example invalid URLs:**
+- `not a url`
+- `ftp://example.com` (unsupported protocol)
+- `example.com` (missing scheme)
+- `//example.com` (relative URL)
+
 ## ID Generation & Collision Handling
 
 Short URL IDs are generated from the first 8 hexadecimal characters of a GUID, providing $16^8$ (4.2 billion) possible combinations. While collisions are statistically unlikely for typical use, the application now includes **automatic collision detection and retry logic**:
@@ -159,7 +181,6 @@ This ensures data integrity and prevents silent failures.
 
 ## Known Limitations
 
-- **No server-side URL validation** — the server only checks that the input is non-empty; URL format is validated client-side only.
 - **No authentication or rate limiting** — the app is open to abuse if exposed publicly without a reverse proxy or WAF.
 - **No click tracking** — `CreatedAt` is stored but not surfaced in the UI.
 
