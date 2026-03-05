@@ -65,6 +65,9 @@
                             </svg>
                         </button>
                     </div>
+                    <div class="text-gray-500 text-xs mt-3">
+                        Created on <span class="font-semibold">@Model.CreatedAtTime?.ToString("dddd, MMMM d, yyyy 'at' h:mm tt")</span>
+                    </div>
                     <div id="copyFeedback" class="text-success text-sm mt-2" style="display:none;">Copied to clipboard!</div>
                     <a href="@Model.ShortenedUrl" target="_blank" class="link link-success text-sm mt-2 inline-block">
                         Open link ↗
