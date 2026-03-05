@@ -4,53 +4,52 @@
     ViewData["Title"] = "URL Shortener";
 }
 
-<div class="row justify-content-center mt-5">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+<div class="flex justify-center mt-10 px-4">
+    <div class="w-full max-w-md">
 
-        <div class="text-center mb-4">
-            <div class="mb-3">
-                <span class="display-1">🔗</span>
+        <div class="text-center mb-6">
+            <div class="mb-3 text-6xl">
+                🔗
             </div>
-            <h1 class="fw-bold">URL Shortener</h1>
-            <p class="text-muted">Paste a long URL and get a short, shareable link instantly.</p>
+            <h1 class="text-3xl font-bold mb-2">URL Shortener</h1>
+            <p class="text-gray-500">Paste a long URL and get a short, shareable link instantly.</p>
         </div>
 
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
+        <div class="card bg-base-100 shadow-lg border border-base-300">
+            <div class="card-body p-6">
                 <form method="post">
-                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small" role="alert"></div>
-
-                    <div class="form-floating mb-3">
-                        <input type="url"
-                               asp-for="NewUrl"
-                               class="form-control @(ViewData.ModelState["NewUrl"]?.Errors.Count > 0 ? "is-invalid" : "")"
-                               id="NewUrl"
-                               placeholder="https://example.com/very/long/url" />
-                        <label for="NewUrl">Paste your long URL here</label>
-                        <span asp-validation-for="NewUrl" class="invalid-feedback"></span>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-error alert-soft mb-4" role="alert"></div>
+                    <div class="mb-4">
+                        <label class="w-full input input-bordered flex items-center gap-2 @(ViewData.ModelState["NewUrl"]?.Errors.Count > 0 ? "input-error" : "")">
+                            <input type="url"
+                                   asp-for="NewUrl"
+                                   class="grow"
+                                   placeholder="https://example.com/very/long/url" />
+                        </label>
+                        <label class="label">
+                            <span class="label-text-alt">Paste your long URL here</span>
+                            <span asp-validation-for="NewUrl" class="label-text-alt text-error"></span>
+                        </label>
                     </div>
-
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            Shorten URL
-                        </button>
-                    </div>
+                    <button type="submit" class="btn btn-primary w-full btn-lg">
+                        Shorten URL
+                    </button>
                 </form>
             </div>
         </div>
 
         @if (!string.IsNullOrEmpty(Model.ShortenedUrl))
         {
-            <div class="card mt-3 border-success shadow-sm">
-                <div class="card-body p-4">
-                    <h6 class="card-subtitle mb-2 text-muted small text-uppercase fw-semibold">Your shortened URL</h6>
-                    <div class="input-group">
+            <div class="card bg-base-100 border border-success shadow-lg mt-4">
+                <div class="card-body p-6">
+                    <h6 class="font-bold text-sm text-gray-500 uppercase mb-3">Your shortened URL</h6>
+                    <div class="join w-full">
                         <input type="text"
                                id="shortenedUrlInput"
-                               class="form-control form-control-lg fw-semibold text-success"
+                               class="input input-bordered join-item flex-grow font-semibold text-success"
                                value="@Model.ShortenedUrl"
                                readonly />
-                        <button class="btn btn-outline-success"
+                        <button class="btn btn-primary join-item"
                                 type="button"
                                 onclick="copyToClipboard()"
                                 title="Copy to clipboard">
@@ -60,8 +59,8 @@
                             </svg>
                         </button>
                     </div>
-                    <div id="copyFeedback" class="text-success small mt-1" style="display:none;">Copied to clipboard!</div>
-                    <a href="@Model.ShortenedUrl" target="_blank" class="btn btn-sm btn-link text-success px-0 mt-1">
+                    <div id="copyFeedback" class="text-success text-sm mt-2" style="display:none;">Copied to clipboard!</div>
+                    <a href="@Model.ShortenedUrl" target="_blank" class="link link-success text-sm mt-2 inline-block">
                         Open link ↗
                     </a>
                 </div>
